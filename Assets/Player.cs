@@ -7,13 +7,14 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        _characterController ??= this.GetComponent<CharacterController>();
+        if (_characterController == null)
+        {
+            _characterController = this.GetComponent<CharacterController>();
+        }
     }
 
     private void Update()
     {
-        print("xxx");
-
         var h = Input.GetAxis("Horizontal");
         var v = Input.GetAxis ("Vertical");
 
@@ -23,7 +24,7 @@ public class Player : MonoBehaviour
 
             vector = this.transform.TransformDirection(vector);
 
-            _characterController.Move(vector * _speed);
+            _characterController.SimpleMove(vector * _speed);
         }
     }
 }
